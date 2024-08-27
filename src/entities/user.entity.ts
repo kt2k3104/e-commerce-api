@@ -6,11 +6,11 @@ import { UserLoginInformation } from './user-login-infomations.entity';
 @Entity('users')
 export class User extends CommonEntity {
   @ApiResponseProperty({ type: String })
-  @Column({ nullable: false, length: 50 })
+  @Column({ nullable: false, length: 100 })
   full_name: string;
 
   @ApiResponseProperty({ type: String })
-  @Column({ nullable: false, length: 50 })
+  @Column({ nullable: false, length: 100 })
   nickname: string;
 
   @ApiResponseProperty({ type: String })
@@ -41,13 +41,17 @@ export class User extends CommonEntity {
   @Column({ nullable: false, length: 255, select: false })
   hash_password: string;
 
-  @ApiResponseProperty({ type: Number, deprecated: true })
+  @ApiResponseProperty({ type: String, deprecated: true })
   @Column({ nullable: false, length: 6, select: false })
-  pin: number;
+  pin: string;
 
   @ApiResponseProperty({ type: String })
   @Column()
   facebook_link: string;
+
+  @ApiResponseProperty({ type: String })
+  @Column()
+  github_link: string;
 
   @ApiResponseProperty({ type: String })
   @Column()
