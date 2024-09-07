@@ -1,6 +1,8 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { CommonEntity } from './common.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
+import { User } from './user.entity';
+import { NotificationType } from 'src/common/enums/notification.enum';
 
 @Entity({ name: 'notifications' })
 export class Notification extends CommonEntity {
@@ -23,7 +25,20 @@ export class Notification extends CommonEntity {
   @ApiResponseProperty({ type: String })
   @Column({ type: String, nullable: false })
   title: string;
-  @ApiResponseProperty({ type: String })
-  @Column({ type: String, nullable: false })
-  titleEEEEE: string;
+
+  @ApiResponseProperty({ type: NotificationType })
+  @Column({
+    type: 'enum',
+    enum: NotificationType,
+    nullable: false,
+    default: NotificationType.INFO,
+  })
+  type: NotificationType;
+
+  // relation
+  @ManyToOne(() => User, (user) => user.notifications, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 }

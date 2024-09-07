@@ -1,7 +1,20 @@
-import { Column, Entity, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 import { CommonEntity } from './common.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { UserLoginInformation } from './user-login-infomations.entity';
+import { Notification } from './notification.entity';
+import { Roles } from './role.entity';
+import { Cart } from './cart.entity';
+import { Address } from './address.entity';
+import { PaymentMethod } from './payment-method.entity';
+import { Shipping } from './shipping.entity';
 
 @Entity('users')
 export class User extends CommonEntity {
@@ -51,13 +64,32 @@ export class User extends CommonEntity {
 
   @ApiResponseProperty({ type: String })
   @Column()
-  github_link: string;
-
-  @ApiResponseProperty({ type: String })
-  @Column()
   role: string;
 
   // Define relations
   @OneToOne(() => UserLoginInformation, (userInfo) => userInfo.user)
   userLoginInfomation: UserLoginInformation;
+
+  @OneToMany(() => Notification, (notification) => notification.user)
+  notifications: Notification[];
+
+  @ManyToMany(() => Roles, (role) => role.users)
+  @JoinTable({
+    name: 'user_roles',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+  })
+  roles: Roles[];
+
+  @OneToOne(() => Cart, (cart) => cart.user)
+  cart: Cart;
+
+  @OneToMany(() => Address, (address) => address.user)
+  addresses: Address[];
+
+  @OneToMany(() => PaymentMethod, (paymentMethod) => paymentMethod.user)
+  payment_methods: PaymentMethod[];
+
+  @OneToMany(() => Shipping, (shipping) => shipping.user)
+  shippings: Shipping[];
 }
