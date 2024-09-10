@@ -5,36 +5,27 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class UserLoginInfomation1725642078039 implements MigrationInterface {
+export class BankTransfer1725806173386 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'user_login_informations',
+        name: 'bank_transfers',
         columns: [
           {
             name: 'id',
-            type: 'serial',
+            type: 'int',
             isPrimary: true,
           },
           {
-            name: 'user_id',
-            type: 'int',
+            name: 'bank_name',
+            type: 'varchar',
+            length: '100',
             isNullable: false,
           },
           {
-            name: 'access_token',
-            type: 'text',
-            isNullable: true,
-          },
-          {
-            name: 'refresh_token',
-            type: 'text',
-            isNullable: true,
-          },
-          {
-            name: 'reset_password_token',
-            type: 'text',
-            isNullable: true,
+            name: 'qr_code-url',
+            type: 'varchar',
+            isNullable: false,
           },
           {
             name: 'created_at',
@@ -53,16 +44,17 @@ export class UserLoginInfomation1725642078039 implements MigrationInterface {
       }),
     );
     await queryRunner.createForeignKey(
-      'user_login_informations',
+      'bank_transfers',
       new TableForeignKey({
-        columnNames: ['user_id'],
+        columnNames: ['id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'users',
+        referencedTableName: 'payment_methods',
         onDelete: 'CASCADE',
       }),
     );
   }
+
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('user_login_informations');
+    await queryRunner.dropTable('bank_transfers');
   }
 }

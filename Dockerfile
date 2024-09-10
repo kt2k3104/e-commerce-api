@@ -5,12 +5,16 @@ FROM base as deps
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+RUN chown -R node /app
+
+COPY --chown=node package.json yarn.lock ./
 
 RUN yarn --frozen-lockfile;
 
-COPY . .
+COPY --chown=node . .
 
 RUN yarn build
+
+USER node
 
 CMD [ "yarn", "start:dev" ]

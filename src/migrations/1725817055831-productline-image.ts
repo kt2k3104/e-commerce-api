@@ -5,22 +5,15 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class Cart1725681501110 implements MigrationInterface {
+export class ProductlineImage1725817055831 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'carts',
+        name: 'productline_images',
         columns: [
-          {
-            name: 'id',
-            type: 'serial',
-            isPrimary: true,
-          },
-          {
-            name: 'user_id',
-            type: 'int',
-            isNullable: false,
-          },
+          { name: 'id', type: 'serial', isPrimary: true },
+          { name: 'productline_id', type: 'int', isNullable: false },
+          { name: 'image_url', type: 'varchar', isNullable: false },
           {
             name: 'created_at',
             type: 'timestamp with time zone',
@@ -38,17 +31,17 @@ export class Cart1725681501110 implements MigrationInterface {
       }),
     );
     await queryRunner.createForeignKey(
-      'carts',
+      'productline_images',
       new TableForeignKey({
-        columnNames: ['user_id'],
+        columnNames: ['productline_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'users',
+        referencedTableName: 'productlines',
         onDelete: 'CASCADE',
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('carts');
+    await queryRunner.dropTable('productline_images');
   }
 }

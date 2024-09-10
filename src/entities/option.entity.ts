@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CommonEntity } from './common.entity';
 import { Category } from './category.entity';
-import { ProductOption } from './product-option.entity';
+import { ProductlineOption } from './productline-option.entity';
 import { OptionItem } from './option-item.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
 
@@ -20,8 +20,11 @@ export class Option extends CommonEntity {
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
-  @OneToMany(() => ProductOption, (productOption) => productOption.option)
-  productOptions: ProductOption[];
+  @OneToMany(
+    () => ProductlineOption,
+    (productlineOption) => productlineOption.option,
+  )
+  productlineOptions: ProductlineOption[];
 
   @OneToMany(() => OptionItem, (optionItem) => optionItem.option)
   optionItems: OptionItem[];

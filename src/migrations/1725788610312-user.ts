@@ -1,7 +1,7 @@
 import { Gender } from 'src/common/enums/user.enum';
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class InitDb1724781115445 implements MigrationInterface {
+export class User1725788610312 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({

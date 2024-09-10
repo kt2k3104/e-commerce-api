@@ -3,6 +3,7 @@ import { CommonEntity } from './common.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { Address } from './address.entity';
 import { Shipping } from './shipping.entity';
+import { Payment } from './payment.entity';
 
 @Entity({ name: 'orders' })
 export class Order extends CommonEntity {
@@ -23,4 +24,7 @@ export class Order extends CommonEntity {
 
   @OneToMany(() => Shipping, (shipping) => shipping.order)
   shippings: Shipping[];
+
+  @OneToMany(() => Payment, (payment) => payment.order)
+  payments: Payment[];
 }

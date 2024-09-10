@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CommonEntity } from './common.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { Category } from './category.entity';
-import { ProductOption } from './product-option.entity';
+import { ProductlineOption } from './productline-option.entity';
 import { ProductVariant } from './product-variant.entity';
 import { ProductlineImage } from './productline-image.entity';
 
@@ -40,8 +40,11 @@ export class Productline extends CommonEntity {
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
-  @OneToMany(() => ProductOption, (productOption) => productOption.productline)
-  productOptions: ProductOption[];
+  @OneToMany(
+    () => ProductlineOption,
+    (productlineOption) => productlineOption.productline,
+  )
+  productlineOptions: ProductlineOption[];
 
   @OneToMany(
     () => ProductVariant,
