@@ -9,3 +9,9 @@ export enum UserRole {
   SELLER = 'seller',
   BUYER = 'buyer',
 }
+
+export enum UserStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  BLOCKED = 'blocked',
+}

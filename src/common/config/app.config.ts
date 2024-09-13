@@ -6,7 +6,7 @@ dotenv.config();
 const appConfig = {
   port: parseInt(process.env.APP_PORT, 10) || 3000,
   version: process.env.APP_VERSION,
-  prefix: process.env.APP_PERFIX,
+  prefix: process.env.APP_PREFIX,
   name: process.env.APP_NAME,
   domain: process.env.APP_DOMAIN || 'localhost',
   token_expire_time: process.env.TOKEN_EXPIRE_TIME,

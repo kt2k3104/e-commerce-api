@@ -1,4 +1,4 @@
-import { Gender } from 'src/common/enums/user.enum';
+import { Gender, UserRole, UserStatus } from 'src/common/enums/user.enum';
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class User1725788610312 implements MigrationInterface {
@@ -22,7 +22,7 @@ export class User1725788610312 implements MigrationInterface {
             name: 'nickname',
             type: 'varchar',
             length: '100',
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: 'gender',
@@ -67,7 +67,7 @@ export class User1725788610312 implements MigrationInterface {
             name: 'pin',
             type: 'varchar',
             length: '6',
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: 'facebook_link',
@@ -76,7 +76,14 @@ export class User1725788610312 implements MigrationInterface {
           },
           {
             name: 'role',
-            type: 'varchar',
+            type: 'enum',
+            enum: Object.values(UserRole),
+            isNullable: false,
+          },
+          {
+            name: 'status',
+            type: 'enum',
+            enum: Object.values(UserStatus),
             isNullable: false,
           },
           {

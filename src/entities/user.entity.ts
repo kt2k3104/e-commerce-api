@@ -7,7 +7,7 @@ import { Cart } from './cart.entity';
 import { Address } from './address.entity';
 import { PaymentMethod } from './payment-method.entity';
 import { Shipping } from './shipping.entity';
-import { UserRole } from 'src/common/enums/user.enum';
+import { UserRole, UserStatus } from 'src/common/enums/user.enum';
 
 @Entity('users')
 export class User extends CommonEntity {
@@ -58,6 +58,14 @@ export class User extends CommonEntity {
   @ApiResponseProperty({ type: 'enum', enum: UserRole })
   @Column({ type: 'enum', enum: UserRole, default: UserRole.BUYER })
   role: UserRole;
+
+  @ApiResponseProperty({ type: 'enum', enum: UserStatus })
+  @Column({
+    type: 'enum',
+    enum: UserStatus,
+    nullable: false,
+  })
+  status: UserStatus;
 
   // Define relations
   @OneToOne(() => UserLoginInformation, (userInfo) => userInfo.user)
