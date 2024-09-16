@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpStatus,
@@ -35,6 +36,21 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   async getProfile(@CurrentUser() user: User) {
     return user;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+  })
+  @ApiOperation({
+    operationId: 'update-profile',
+    summary: 'Update profile',
+    description: 'Update profile',
+  })
+  @Post('profile')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  async updateProfile(@CurrentUser() user: User, @Body() data: any) {
+    return await this.userService.updateProfile(user.id, data);
   }
 
   @ApiResponse({
