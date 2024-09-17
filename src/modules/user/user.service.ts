@@ -10,10 +10,22 @@ export class UserService {
     private readonly notificationRepository: NotificationRepository,
   ) {}
 
+  async getAllUsers() {
+    return this.userRepository.find();
+  }
+
   async updateProfile(userId: number, data: any) {
     await this.userRepository.update({ id: userId }, data);
 
     return new SuccessRes('Update profile successfully');
+  }
+
+  async getOtherProfile(userId: number) {
+    return this.userRepository.findOne({
+      where: {
+        id: userId,
+      },
+    });
   }
 
   async getNotification(userId: number) {

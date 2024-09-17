@@ -6,9 +6,10 @@ import { UserRepository } from 'src/repositories/user.repositories';
 import { UserController } from './user.controller';
 import { NotificationRepository } from 'src/repositories/notification.repository';
 import { Notification } from 'src/entities/notification.entity';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Notification])],
+  imports: [TypeOrmModule.forFeature([User, Notification]), CloudinaryModule],
   controllers: [UserController],
   providers: [UserService, UserRepository, NotificationRepository],
 })
