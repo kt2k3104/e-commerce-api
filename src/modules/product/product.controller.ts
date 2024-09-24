@@ -5,6 +5,7 @@ import {
   Get,
   HttpStatus,
   Param,
+  Post,
   Put,
   Query,
   UseGuards,
@@ -19,100 +20,9 @@ import { ProductService } from './product.service';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @ApiTags('Product')
-@Controller('product')
+@Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
-  // Category
-  @ApiResponse({
-    status: HttpStatus.OK,
-  })
-  @ApiOperation({
-    operationId: 'get-all-categories',
-    summary: 'Get all categories',
-    description: 'Get all categories',
-  })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Get('categories')
-  async getAllCategories() {
-    return await this.productService.getAllCategories();
-  }
-
-  @ApiResponse({
-    status: HttpStatus.OK,
-  })
-  @ApiOperation({
-    operationId: 'get-category-by-id',
-    summary: 'Get category by id',
-    description: 'Get category by id',
-  })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Get('category/:id')
-  async getCategoryById(@Param('id') id: number) {
-    return await this.productService.getCategoryById(id);
-  }
-
-  @ApiResponse({
-    status: HttpStatus.CREATED,
-  })
-  @ApiOperation({
-    operationId: 'add-category',
-    summary: 'Add category',
-    description: 'Add category',
-  })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Get('add-category')
-  async addCategory(@Query() data: any) {
-    return await this.productService.createCategory(data);
-  }
-
-  @ApiResponse({
-    status: HttpStatus.OK,
-  })
-  @ApiOperation({
-    operationId: 'update-category',
-    summary: 'Update category',
-    description: 'Update category',
-  })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Put('update-category')
-  async updateCategory(
-    @Query('category_id') categoryId: number,
-    @Body() data: any,
-  ) {
-    return await this.productService.updateCategory(categoryId, data);
-  }
-
-  @ApiResponse({
-    status: HttpStatus.OK,
-  })
-  @ApiOperation({
-    operationId: 'delete-category',
-    summary: 'Delete category',
-    description: 'Delete category',
-  })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Delete('delete-category')
-  async deleteCategory(@Query('category_id') categoryId: number) {
-    return await this.productService.deleteCategory(categoryId);
-  }
-
-  // Option
-  @ApiResponse({
-    status: HttpStatus.OK,
-  })
-  @ApiOperation({
-    operationId: 'get-all-options',
-    summary: 'Get all options',
-    description: 'Get all options',
-  })
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Get('options')
 
   // Productline
   @ApiResponse({
@@ -155,7 +65,7 @@ export class ProductController {
   })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Get('add-productline')
+  @Post('add-productline')
   async addProductline(@Query() data: any) {
     return await this.productService.addProductline(data);
   }

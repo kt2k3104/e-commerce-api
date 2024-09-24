@@ -1,51 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { SuccessRes } from 'src/common/types/response';
-import { CategoryRepository } from 'src/repositories/category.repository';
 import { ProductlineRepository } from 'src/repositories/productline.repository';
 
 @Injectable()
 export class ProductService {
-  constructor(
-    private readonly productlineRepository: ProductlineRepository,
-    private readonly categoryRepository: CategoryRepository,
-  ) {}
-  // Category
-  async getAllCategories() {
-    return this.categoryRepository.find();
-  }
-
-  async getCategoryById(categoryId: number) {
-    return this.categoryRepository.findOne({
-      where: { id: categoryId },
-    });
-  }
-
-  async createCategory(data: any) {
-    const newCategory = this.categoryRepository.create(data);
-    await this.categoryRepository.save(newCategory);
-
-    return new SuccessRes('Create category successfully');
-  }
-
-  async updateCategory(categoryId: number, data: any) {
-    await this.categoryRepository.update({ id: categoryId }, data);
-
-    return new SuccessRes('Update category successfully');
-  }
-
-  async deleteCategory(categoryId: number) {
-    await this.categoryRepository.delete({ id: categoryId });
-
-    return new SuccessRes('Delete category successfully');
-  }
-
-  // Option
-  async getOptionsByCategory(categoryId: number) {
-    return this.categoryRepository.findOne({
-      where: { id: categoryId },
-      relations: ['options'],
-    });
-  }
+  constructor(private readonly productlineRepository: ProductlineRepository) {}
 
   // Productline
   async getProductlinesByCategory(categoryId: number) {
