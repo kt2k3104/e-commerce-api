@@ -1,12 +1,11 @@
+import { SuccessRes } from '../../common/types/response';
 import { Injectable } from '@nestjs/common';
-import { SuccessRes } from 'src/common/types/response';
-import { ProductlineRepository } from 'src/repositories/productline.repository';
+import { ProductlineRepository } from '../../repositories/productline.repository';
 
 @Injectable()
 export class ProductService {
   constructor(private readonly productlineRepository: ProductlineRepository) {}
 
-  // Productline
   async getProductlinesByCategory(categoryId: number) {
     return this.productlineRepository.find({
       where: { category_id: categoryId },
