@@ -1,6 +1,7 @@
 import { SuccessRes } from '../../common/types/response';
 import { Injectable } from '@nestjs/common';
 import { ProductlineRepository } from '../../repositories/productline.repository';
+import { ProductlineReq } from './dto/productline.req';
 
 @Injectable()
 export class ProductService {
@@ -18,8 +19,8 @@ export class ProductService {
     });
   }
 
-  async addProductline(data: any) {
-    const newProductline = this.productlineRepository.create(data);
+  async addProductline(request: ProductlineReq) {
+    const newProductline = this.productlineRepository.create(request);
     await this.productlineRepository.save(newProductline);
 
     return new SuccessRes('Add productline successfully');

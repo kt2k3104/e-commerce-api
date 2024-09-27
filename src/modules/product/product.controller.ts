@@ -18,6 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { ProductService } from './product.service';
+import { ProductlineReq } from './dto/productline.req';
 
 @ApiTags('Product')
 @Controller('products')
@@ -66,8 +67,8 @@ export class ProductController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('add-productline')
-  async addProductline(@Query() data: any) {
-    return await this.productService.addProductline(data);
+  async addProductline(@Body() request: ProductlineReq) {
+    return await this.productService.addProductline(request);
   }
 
   @ApiResponse({
